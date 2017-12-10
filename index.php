@@ -19,7 +19,7 @@ if(isset($_SESSION['myusername'])){
 
 set_language();
 
-$extensionsAllowedForImagick = array("jpg", "tif", "png");
+$extensionsAllowedForImagick = array("jpg", "tif", "png", "pdf");
 
 $alreadyPrinted = array();
 
@@ -406,12 +406,23 @@ foreach ($fnames as $fname) {
 				$path_parts = pathinfo($fname);
 				if (extension_loaded('imagick')&&in_array($path_parts['extension'],$extensionsAllowedForImagick))
 				{
-					$imagick = new Imagick($fname);
-					$imageResolution = $imagick->getImageResolution();
-					$pixelWidth = $imagick->getImageWidth();
-					$pixelHeight = $imagick->getImageHeight();
-					$size = round($pixelWidth*2.54/$imageResolution['x'],2).'x'.round($pixelHeight*2.54/$imageResolution['y'],2);
-					$fileAreas[$subdir."/".$fname]['size']=$size;
+					$imExc = false;
+					try{
+						//$imagick = new Imagick($fname);
+						$imagick = new Imagick();
+						$imagick->readImage($fname.'[0]');
+					}catch(Exception $e){
+						echo 'Caught exception: '.  $e->getMessage(). "\n";
+						$imExc = true;
+					}
+					if(!$imExc)
+					{
+						$imageResolution = $imagick->getImageResolution();
+						$pixelWidth = $imagick->getImageWidth();
+						$pixelHeight = $imagick->getImageHeight();
+						$size = round($pixelWidth*2.54/$imageResolution['x'],2).'x'.round($pixelHeight*2.54/$imageResolution['y'],2);
+						$fileAreas[$subdir."/".$fname]['size']=$size;
+					}
 				}
 				$fileAreasChanged = true;
 			}
@@ -608,12 +619,23 @@ function get_areaFromFile($path)
 				$fileAreas[$path]['filectime']=filectime($path);
 				if (extension_loaded('imagick')&&in_array($path_parts['extension'],$extensionsAllowedForImagick ))
 				{
-					$imagick = new Imagick($path);
-					$imageResolution = $imagick->getImageResolution();
-					$pixelWidth = $imagick->getImageWidth();
-					$pixelHeight = $imagick->getImageHeight();
-					$size = round($pixelWidth*2.54/$imageResolution['x'],2).'x'.round($pixelHeight*2.54/$imageResolution['y'],2);
-					$fileAreas[$subdir."/".$fname]['size']=$size;
+					$imExc = false;
+					try{
+						//$imagick = new Imagick($path);
+						$imagick = new Imagick();
+						$imagick->readImage($fpath.'[0]');
+					}catch(Exception $e){
+						echo 'Caught exception: '.  $e->getMessage(). "\n";
+						$imExc = true;
+					}
+					if(!$imExc)
+					{
+						$imageResolution = $imagick->getImageResolution();
+						$pixelWidth = $imagick->getImageWidth();
+						$pixelHeight = $imagick->getImageHeight();
+						$size = round($pixelWidth*2.54/$imageResolution['x'],2).'x'.round($pixelHeight*2.54/$imageResolution['y'],2);
+						$fileAreas[$subdir."/".$fname]['size']=$size;
+					}
 				}
 				$fileAreasChanged = true;
 			}

@@ -65,7 +65,8 @@ p {
 <p><?php echo _("This php app serves to sum the areas of printing files. "); ?> </p>
 <p><?php echo _("The printing files are supposed to be placed in folders and subfolders contained within printing files folder which should be the 
   &quot;<em>public_html</em>&quot; subfolder. "); ?> </p>
-<p><?php echo _("The printing areas are calculated automatically on entering the application page. The calculations are based on dimensions encoded in file names like &quot;<em>p5_120x95cm.jpg</em>&quot; or &quot;<em>P01_1536x2420mm.tif</em>&quot;. If the file name doesn't contain dimensions encoded like that, the default 100x100cm printing size will be assumed. If the server php contains Imagemagick extension, then from files with .tif or .jpg extension the printing size will be decoded by Imagemagick. The current application data is stored in json files automatically created inside the application folder. "); ?></p>
+<p><?php echo _("The printing areas are calculated automatically on entering the application page. The calculations are based on dimensions encoded in file names like &quot;<em>p5_120x95cm.jpg</em>&quot; or &quot;<em>P01_1536x2420mm.tif</em>&quot;. If the file name doesn't contain dimensions encoded like that, the default 100x100cm printing size will be assumed. If the server php contains Imagemagick extension, then from files with .tif, .jpg, .pdf, or .png extension the printing size will be decoded by Imagemagick. The current application data is stored in json files automatically created inside the application folder. "); ?></p>
+<p><?php echo _("The pdf format can have a number of page box options: mediabox, cropbox, artbox, bleedbox, trimbox and the first one, mediabox, is used here by default. Only the first page is accessed on multipage files. "); ?></p>
 <p><?php echo _("The count of printouts should be encoded by appending to file name together with &quot;pcs&quot;, like &quot;<em>P21_297x210mm_67pcs.jpg</em>&quot;."); ?></p>
 <p><?php echo _("When logged as a common user you can browse through the printing folders and mark files as printed. The parent foders get automatically marked as printed when all the contained files are marked as printed. When logged as admin you can also change folder attributes. Folders marked as archive are skipped in area calculations.<br />
   <br />
@@ -73,8 +74,6 @@ p {
 <h2><?php echo _("Instalation instructions "); ?></h2>
 <p>1. <?php echo _("Create a ftp account with main folder being a &quot;<em>public_html</em>&quot; subfolder. This will be your main printing files folder. You can put all your printing files as a loose collection or structured in subfolders there."); ?></p>
 <p>2. <?php echo _("Edit the configuration file &quot;<em>config.php</em>&quot; by entering the printing files folder name and the database settings"); ?>:</p>
-<p>3. <?php echo _("Create an application folder in &quot;<em>public_html</em>&quot; folder. Copy the content of &quot;<em>printFileManager</em>&quot; there. "); ?></p>
-
 <ul>
   <li>$ftpDir = 'print';  // <?php echo _("main printing files folder "); ?></li>
 </ul>
@@ -86,6 +85,7 @@ p {
   <li>$db_name=&quot;printFileManager&quot;; // <?php echo _("Database name "); ?></li>
   <li>$tbl_name=&quot;users&quot;; // <?php echo _("Table name "); ?></li>
 </ul>
+<p>3. <?php echo _("Create an application folder in &quot;<em>public_html</em>&quot; folder. Copy the content of &quot;<em>printFileManager</em>&quot; there. "); ?></p>
 <p>4. <?php echo _('Open your app in the web browser and run the script <em>createUsersTable.php</em> from the main application folder. This will create  a database table for storing user names, passwords, and roles. The table  contains columns named "username", "password" and "userrole". The demo users values will be inserted into the table. '); ?><br />
   <br />
 </p>

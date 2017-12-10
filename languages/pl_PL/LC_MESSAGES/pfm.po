@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2017-12-09 20:37+0100\n"
-"PO-Revision-Date: 2017-12-09 21:22+0100\n"
+"POT-Creation-Date: 2017-12-10 15:20+0100\n"
+"PO-Revision-Date: 2017-12-10 15:34+0100\n"
 "Last-Translator: Tomasz Kielski <tomekkie@poczta.onet.pl>\n"
 "Language-Team: \n"
 "Language: pl_PL\n"
@@ -16,51 +16,51 @@ msgstr ""
 "X-Poedit-SearchPath-0: index.php\n"
 "X-Poedit-SearchPath-1: instructions/index.php\n"
 
-#: index.php:72 index.php:238
+#: index.php:83 index.php:249
 msgid "Printing file list"
 msgstr "Wykaz plików do druku"
 
-#: index.php:72 index.php:238
+#: index.php:83 index.php:249
 msgid "Main directory"
 msgstr "Katalog główny"
 
-#: index.php:272
+#: index.php:283
 msgid "print size"
 msgstr "wymiary"
 
-#: index.php:273
+#: index.php:284
 msgid "count"
 msgstr "ilość"
 
-#: index.php:474
+#: index.php:496
 msgid "printouts in the table"
 msgstr "wydruki w tabeli"
 
-#: index.php:475
+#: index.php:497
 msgid "remains to print"
 msgstr "pozostaje do druku"
 
-#: index.php:478
+#: index.php:500
 msgid "possible folder attributes:"
 msgstr "możliwe atrybuty folderów:"
 
-#: index.php:482
+#: index.php:504
 msgid "archive, skipped in calculations"
 msgstr "archiwalny, pomijany w sumowaniu"
 
-#: instructions/index.php:51 instructions/index.php:88
+#: instructions/index.php:63 instructions/index.php:100
 msgid "back"
 msgstr "powrót"
 
-#: instructions/index.php:52
+#: instructions/index.php:64
 msgid "Instructions of use"
 msgstr "Instrukcja użytkowania"
 
-#: instructions/index.php:53
+#: instructions/index.php:65
 msgid "This php app serves to sum the areas of printing files. "
 msgstr "Ta aplikacja php służy do sumowania powierzchni z plików do druku. "
 
-#: instructions/index.php:54
+#: instructions/index.php:66
 msgid ""
 "The printing files are supposed to be placed in folders and subfolders "
 "contained within printing files folder which should be the \n"
@@ -70,29 +70,40 @@ msgstr ""
 "zawartych w folderze plików do druku będącym podfolderem \n"
 "  &quot;<em>public_html</em>&quot; na serwerze. "
 
-#: instructions/index.php:56
+#: instructions/index.php:68
 msgid ""
 "The printing areas are calculated automatically on entering the application "
 "page. The calculations are based on dimensions encoded in file names like "
 "&quot;<em>p5_120x95cm.jpg</em>&quot; or &quot;<em>P01_1536x2420mm.tif</"
 "em>&quot;. If the file name doesn't contain dimensions encoded like that, "
 "the default 100x100cm printing size will be assumed. If the server php "
-"contains Imagemagick extension, then from files with .tif or .jpg extension "
-"the printing size will be decoded by Imagemagick. The current application "
-"data is stored in json files automatically created inside the application "
-"folder. "
+"contains Imagemagick extension, then from files with .tif, .jpg, .pdf, or ."
+"png extension the printing size will be decoded by Imagemagick. The current "
+"application data is stored in json files automatically created inside the "
+"application folder. "
 msgstr ""
 "Powierzchnie druku są wyliczane automatycznie po wejściu na stronę "
 "aplikacji. Obliczenia oparte są na wymiarach zakodowanych w nazwach plików "
 "jak &quot;<em>p5_120x95cm.jpg</em>&quot; lub &quot;<em>P01_1536x2420mm.tif</"
 "em>&quot;. Jeśli nazwa pliku nie zawiera zakodowanych wymiarów, wtedy "
 "przyjęta zostanie wartość domyślna wynosząca 100x100cm. Jeżeli na serwerze "
-"zainstalowany jest dodatek Imagemagick - to dla plików z rozszerzeniami .tif "
-"lub .jpg wymiary zostaną odczytane z plików przez Imagemagick. Bieżące dane "
-"aplikacji zapisywane są w plikach json automatycznie tworzonych wewnątrz "
-"folderu aplikacji.  "
+"zainstalowany jest dodatek Imagemagick - to dla plików z rozszerzeniami ."
+"tif, .jpg, .png lub .pdf wymiary zostaną odczytane z plików przez "
+"Imagemagick. Bieżące dane aplikacji zapisywane są w plikach json "
+"automatycznie tworzonych wewnątrz folderu aplikacji.  "
 
-#: instructions/index.php:57
+#: instructions/index.php:69
+msgid ""
+"The pdf format can have a number of page box options: mediabox, cropbox, "
+"artbox, bleedbox, trimbox and the first one, mediabox, is used here by "
+"default. Only the first page is accessed on multipage files. "
+msgstr ""
+"Format pdf zawiera różne opcje co do obszaru strony jak pole strony, pode "
+"spadu, pole przycięcia, pole kadrowania i pole grafiki, z których pierwsza "
+"opcja, czyli pole strony zostało zostalo tutaj domyślnie przyjęte. Z plików "
+"wielostronicowych - odczytywana jest pierwsza strona."
+
+#: instructions/index.php:70
 msgid ""
 "The count of printouts should be encoded by appending to file name together "
 "with &quot;pcs&quot;, like &quot;<em>P21_297x210mm_67pcs.jpg</em>&quot;."
@@ -101,7 +112,7 @@ msgstr ""
 "pliku wraz z &quot;pcs&quot;, na przykład &quot;<em>P21_297x210mm_67pcs.jpg</"
 "em>&quot;."
 
-#: instructions/index.php:58
+#: instructions/index.php:71
 msgid ""
 "When logged as a common user you can browse through the printing folders and "
 "mark files as printed. The parent foders get automatically marked as printed "
@@ -119,11 +130,11 @@ msgstr ""
 "  <br />\n"
 "\n"
 
-#: instructions/index.php:61
+#: instructions/index.php:74
 msgid "Instalation instructions "
 msgstr "Instrukcja instalacji "
 
-#: instructions/index.php:62
+#: instructions/index.php:75
 msgid ""
 "Create a ftp account with main folder being a &quot;<em>public_html</"
 "em>&quot; subfolder. This will be your main printing files folder. You can "
@@ -134,7 +145,7 @@ msgstr ""
 "em>&quot; .  Będzie to główny folder plików do druku. Możesz umieszczać w "
 "nim pliki do druku luzem, jak też i pogrupowane w podkatalogach."
 
-#: instructions/index.php:63
+#: instructions/index.php:76
 msgid ""
 "Edit the configuration file &quot;<em>config.php</em>&quot; by entering the "
 "printing files folder name and the database settings"
@@ -142,7 +153,27 @@ msgstr ""
 "Wyedytuj plik konfiguracyjny &quot;<em>config.php</em>&quot; wpisując nazwę "
 "foldera plików do druku oraz parametry bazy danych. "
 
-#: instructions/index.php:64
+#: instructions/index.php:78
+msgid "main printing files folder "
+msgstr "główny folder plików do druku "
+
+#: instructions/index.php:80
+msgid "mysql database parameters: "
+msgstr "parametry bazy danych mysql "
+
+#: instructions/index.php:82
+msgid "Host name "
+msgstr "Nazwa hosta "
+
+#: instructions/index.php:85
+msgid "Database name "
+msgstr "Nazwa bazy danych "
+
+#: instructions/index.php:86
+msgid "Table name "
+msgstr "Nazwa tabeli "
+
+#: instructions/index.php:88
 msgid ""
 "Create an application folder in &quot;<em>public_html</em>&quot; folder. "
 "Copy the content of &quot;<em>printFileManager</em>&quot; there. "
@@ -150,27 +181,7 @@ msgstr ""
 "Utwórz folder aplikacji w &quot;<em>public_html</em>&quot; . Zawartość "
 "folderu &quot;<em>printFileManager</em>&quot; przekopiuj tam. "
 
-#: instructions/index.php:67
-msgid "main printing files folder "
-msgstr "główny folder plików do druku "
-
-#: instructions/index.php:69
-msgid "mysql database parameters: "
-msgstr "parametry bazy danych mysql "
-
-#: instructions/index.php:71
-msgid "Host name "
-msgstr "Nazwa hosta "
-
-#: instructions/index.php:74
-msgid "Database name "
-msgstr "Nazwa bazy danych "
-
-#: instructions/index.php:75
-msgid "Table name "
-msgstr "Nazwa tabeli "
-
-#: instructions/index.php:77
+#: instructions/index.php:89
 msgid ""
 "Open your app in the web browser and run the script <em>createUsersTable."
 "php</em> from the main application folder. This will create  a database "
@@ -184,17 +195,38 @@ msgstr ""
 "columns named \"username\", \"password\" and \"userrole\". The demo users "
 "values will be inserted into the table. "
 
-#: instructions/index.php:81
+#: instructions/index.php:93
 msgid "There are two demo users defined"
 msgstr "W demo zostało zdefiniowanych dwóch użytkowników"
 
-#: instructions/index.php:83
+#: instructions/index.php:95
 msgid "user role as common user"
 msgstr "rola jako zwykły użytkownik"
 
-#: instructions/index.php:84
+#: instructions/index.php:96
 msgid "user role as admin, enabled to edit folder statuses"
 msgstr "rola jako administrator, uprawniony do ustawiania statusu folderów"
+
+#~ msgid ""
+#~ "The printing areas are calculated automatically on entering the "
+#~ "application page. The calculations are based on dimensions encoded in "
+#~ "file names like &quot;<em>p5_120x95cm.jpg</em>&quot; or &quot;"
+#~ "<em>P01_1536x2420mm.tif</em>&quot;. If the file name doesn't contain "
+#~ "dimensions encoded like that, the default 100x100cm printing size will be "
+#~ "assumed. If the server php contains Imagemagick extension, then from "
+#~ "files with .tif or .jpg extension the printing size will be decoded by "
+#~ "Imagemagick. The current application data is stored in json files "
+#~ "automatically created inside the application folder. "
+#~ msgstr ""
+#~ "Powierzchnie druku są wyliczane automatycznie po wejściu na stronę "
+#~ "aplikacji. Obliczenia oparte są na wymiarach zakodowanych w nazwach "
+#~ "plików jak &quot;<em>p5_120x95cm.jpg</em>&quot; lub &quot;"
+#~ "<em>P01_1536x2420mm.tif</em>&quot;. Jeśli nazwa pliku nie zawiera "
+#~ "zakodowanych wymiarów, wtedy przyjęta zostanie wartość domyślna wynosząca "
+#~ "100x100cm. Jeżeli na serwerze zainstalowany jest dodatek Imagemagick - to "
+#~ "dla plików z rozszerzeniami .tif lub .jpg wymiary zostaną odczytane z "
+#~ "plików przez Imagemagick. Bieżące dane aplikacji zapisywane są w plikach "
+#~ "json automatycznie tworzonych wewnątrz folderu aplikacji.  "
 
 #~ msgid ""
 #~ "Create an ftp account with main folder being a &quot;<em>public_html</"
