@@ -35,7 +35,9 @@ echo "Passed";
 session_start ();
 $_SESSION['myusername'] = $myusername;
 $_SESSION['mypassword'] = $mypassword;
-$_SESSION['myuserrole'] = $result[0]['userrole'];
+$row = mysql_fetch_array($result);
+$_SESSION['myuserrole'] = $row['userrole'];
+
 
 	
 header('location:http://'. $_SERVER['HTTP_HOST'] . dirname($_SERVER['REQUEST_URI']).$trackback.'');

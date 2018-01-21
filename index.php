@@ -13,6 +13,7 @@ session_start();
 
 if(isset($_SESSION['myusername'])){
 	$myusername = $_SESSION['myusername'];
+	$myuserrole = $_SESSION['myuserrole'];
 	}else{
 	$myusername = "";
 }
@@ -255,7 +256,7 @@ if($subdir=='')
 {
 	$allFiles = array();
 	$arr = get_areas('.');
-	$printedAreas = $arr;
+	$printingAreas = $arr;
 	/*
 	foreach ($allFiles as $key => $val)
 	{
@@ -264,11 +265,14 @@ if($subdir=='')
 	}
 	*/
 	//purge data from json files-
+	//echo json_encode($allFiles).' ||all<br>';
+	//echo json_encode($fileAreas).' ||4<br>';
 	$alreadyPrinted = array_intersect($alreadyPrinted, $allFiles);
 	foreach ($fileAreas as $fpath => $value) 
 	{
-		if(!in_array($fpath, $allFiles)) unset($fileAreas[$fpath]);
+		if(!in_array($fpath, $allFiles)) {echo $fpath. 'trem<br>'; unset($fileAreas[$fpath]);}
 	}
+	//echo json_encode($fileAreas).' ||5<br>';
 	//-purge
 }
 
@@ -395,9 +399,8 @@ foreach ($fnames as $fname) {
 		}
 		else
 		{
-			if(array_key_exists($subdir."/".$fname,$fileAreas))
+			if(array_key_exists($subdir."/".$fname,$fileAreas)&&$fileAreas[$subdir."/".$fname]['filectime']==filectime($fname))
 			{
-				if($fileAreas[$subdir."/".$fname]['filectime']==filectime($fname))
 				if(array_key_exists('size',$fileAreas[$subdir."/".$fname])) $size = $fileAreas[$subdir."/".$fname]['size'];
 			}
 			else
@@ -523,6 +526,7 @@ file_put_contents('printingAreas.json', $jsonData);
 if($fileAreasChanged)
 {
 	$jsonData = json_encode($fileAreas);
+	//echo $jsonData;
 	file_put_contents('fileAreas.json', $jsonData);
 }
 
@@ -548,6 +552,7 @@ function get_areas($dir, &$areas=array())
 	global $allFiles;
 	global $alreadyPrinted;
 	global $printingAreas;
+	global $fileAreas;
 	$_dir = ltrim($dir,'.');
 	$areas[$_dir]['done'] = 0;
 	$areas[$_dir]['todo'] = 0;
@@ -572,7 +577,7 @@ function get_areas($dir, &$areas=array())
 				$areas[$_dir]['total'] += $areas[$_dir.'/'.$ff]['total'];
 			}
 		}
-		else
+		else 
 		{
 			$_area = get_areaFromFile($dir.'/'.$ff);
 			if(in_array($_dir.'/'.$ff,$alreadyPrinted))	{$areas[$_dir]['done'] += $_area;}else{$areas[$_dir]['todo'] += $_area;}
@@ -589,7 +594,11 @@ function get_areas($dir, &$areas=array())
 	{
 		if(in_array($_dir,$alreadyPrinted)) unset($alreadyPrinted[array_search($_dir, $alreadyPrinted)]);
 	}
-	if(array_key_exists('mode',$printingAreas[$_dir])) $areas[$_dir]['mode'] = $printingAreas[$_dir]['mode'];
+	if(is_array($printingAreas[$_dir]))
+	{
+		if(array_key_exists('mode',$printingAreas[$_dir])) $areas[$_dir]['mode'] = $printingAreas[$_dir]['mode'];
+	}
+	//echo json_encode($fileAreas).' |||<br>';
 	return $areas;
 }
 
@@ -597,7 +606,9 @@ function get_areaFromFile($path)
 {
 		global $fileAreas;
 		global $extensionsAllowedForImagick;
-		
+		global $fileAreasChanged;
+		$_path = ltrim($path,'.');
+				
 		$path_parts = pathinfo($path);
 		$fname = $path_parts['basename'];
 		
@@ -609,32 +620,34 @@ function get_areaFromFile($path)
 		}
 		else
 		{
-			if(array_key_exists($path,$fileAreas))
+			if(array_key_exists($_path,$fileAreas)&&$fileAreas[$_path]['filectime']==filectime($path))
 			{
-				if($fileAreas[$path]['filectime']==filectime($path))
-				if(array_key_exists('size',$fileAreas[$path])) $size = $fileAreas[$path]['size'];
+				
+				if(array_key_exists('size',$fileAreas[$_path])) $size = $fileAreas[$_path]['size'];
+				//echo 'ake '.$size.'e   <br>';
 			}
 			else
 			{
-				$fileAreas[$path]['filectime']=filectime($path);
 				if (extension_loaded('imagick')&&in_array($path_parts['extension'],$extensionsAllowedForImagick ))
 				{
 					$imExc = false;
-					try{
-						//$imagick = new Imagick($path);
+					try
+					{
 						$imagick = new Imagick();
-						$imagick->readImage($fpath.'[0]');
-					}catch(Exception $e){
-						echo 'Caught exception: '.  $e->getMessage(). "\n";
+						$imagick->readImage($path.'[0]');
+					}
+					catch(Exception $e)
+					{
+						echo 'Caught exception: '.  $e->getMessage().' | '.$path.'<br>';
 						$imExc = true;
 					}
-					if(!$imExc)
+					if($imExc==false)
 					{
 						$imageResolution = $imagick->getImageResolution();
 						$pixelWidth = $imagick->getImageWidth();
 						$pixelHeight = $imagick->getImageHeight();
-						$size = round($pixelWidth*2.54/$imageResolution['x'],2).'x'.round($pixelHeight*2.54/$imageResolution['y'],2);
-						$fileAreas[$subdir."/".$fname]['size']=$size;
+						$size = round($pixelWidth*2.54/$imageResolution['x'],1).'x'.round($pixelHeight*2.54/$imageResolution['y'],1);	
+						$fileAreas[$_path] = array('filectime' => filectime($path),'size' => $size);
 					}
 				}
 				$fileAreasChanged = true;
@@ -658,7 +671,6 @@ function get_areaFromFile($path)
 			$itemDimensions[1] *=0.1;
 		}
 		$itemArea = $itemDimensions[0]*$itemDimensions[1]*$itemCount*0.0001;
-
 		return $itemArea;
 }
 ?>
